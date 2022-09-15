@@ -16,17 +16,28 @@ public class Sequence {
     private int[] array;
 
     public Sequence() {
-        this.capacity = 100;
+        this.capacity = 4;
         this.length = length;
         this.array = new int[capacity];
     }
 
 
+    /**
+     * Get the length of the sequence.
+     *
+     * @return the length of the sequence
+     */
     public int getLength() {
         return this.length;
     }
 
+    /**
+     * Insert element in the sequence. Must be element of Z.
+     *
+     * @param item the integer that shall be added to the sequence
+     */
     public void insert( int item) {
+
         if(this.length==this.capacity){
             growSize();
         }
@@ -34,7 +45,15 @@ public class Sequence {
         this.length++;
     }
 
-    public void remove() {
+    /**
+     * Delete the last int in the sequence. Sequence must contain content.
+     *
+     * @throws ArrayIndexOutOfBoundsException if sequence does not contain elements
+     */
+    public void remove() throws ArrayIndexOutOfBoundsException{
+        if(length==0){
+            throw new ArrayIndexOutOfBoundsException("Sequence cannot be empty");
+        }
         if(length<=capacity/2){
             shrinkSize();
         }
@@ -43,18 +62,9 @@ public class Sequence {
         this.length--;
     }
 
-    public int search(int item) {
-        int index = -1;
-
-        for(int i=0;i<length;i++){
-            if(array[i]==item){
-                index=i;
-                i=length;
-            }
-        }
-
-        return index;
-    }
+    /**
+     * Doubling the size of the array.
+     */
     public void growSize()
     {
         int tempArray[] = null;
@@ -71,6 +81,9 @@ public class Sequence {
         this.capacity = capacity * 2;
     }
 
+    /**
+     * Half the size of the sequence.
+     */
     public void shrinkSize(){
         int temp[] = null;
 
@@ -87,8 +100,29 @@ public class Sequence {
         }
     }
 
-    public int lookUp(int item){
 
+    /**
+     * Lookup an element of the sequence. Stops on the first matching element.
+     *
+     * @param item the item that shall be searched for
+     * @return -1 if not found, else it returns the index of the item
+     * @throws NullPointerException if method is called while sequence is empty
+     */
+    public int lookUp(int item) throws NullPointerException{
+        if(getLength()==0){
+            throw new NullPointerException("The sequence is empty");
+        }
+        int foundItem = -1;
+        boolean searching = true;
+        int i=0;
+        while(i< array.length&&searching){
+            if(array[i]==item){
+                foundItem = i;
+                searching = false;
+            }
+            i++;
+        }
+        return foundItem;
     }
 
 }
