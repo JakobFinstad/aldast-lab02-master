@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="lab02" />
+        <module name="aldast-lab02-master" />
       </profile>
     </annotationProcessing>
   </component>
